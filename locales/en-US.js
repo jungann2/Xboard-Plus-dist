@@ -2298,6 +2298,10 @@ window.XBOARD_TRANSLATIONS['en-US'] = {
           "label": "Stop New User Registration",
           "description": "When enabled, no one will be able to register."
         },
+        "ticketMustWaitReply": {
+          "label": "Reply Wait Restriction",
+          "description": "When enabled, users cannot continue sending messages in the same ticket until an administrator replies."
+        },
         "tryOut": {
           "label": "Registration Trial",
           "placeholder": "Disabled",

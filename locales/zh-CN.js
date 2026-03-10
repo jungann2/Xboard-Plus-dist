@@ -2230,6 +2230,10 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
           "label": "停止新用户注册",
           "description": "开启后任何人都将无法进行注册。"
         },
+        "ticketMustWaitReply": {
+          "label": "工单等待回复限制",
+          "description": "开启后，用户在管理员回复前无法在同一工单内连续发送消息。"
+        },
         "tryOut": {
           "label": "注册试用",
           "placeholder": "关闭",
