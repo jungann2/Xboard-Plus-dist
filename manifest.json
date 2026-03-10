@@ -1,0 +1,32 @@
+{
+  "_vendor.js": {
+    "file": "assets/vendor.js",
+    "name": "vendor",
+    "imports": [
+      "index.html"
+    ],
+    "css": [
+      "assets/vendor.css"
+    ],
+    "assets": [
+      "assets/codicon.ttf"
+    ]
+  },
+  "index.html": {
+    "file": "assets/index.js",
+    "name": "index",
+    "src": "index.html",
+    "isEntry": true,
+    "imports": [
+      "_vendor.js",
+      "index.html"
+    ],
+    "css": [
+      "assets/index.css"
+    ]
+  },
+  "node_modules/monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf": {
+    "file": "assets/codicon.ttf",
+    "src": "node_modules/monaco-editor/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf"
+  }
+}
