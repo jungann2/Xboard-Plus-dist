@@ -1028,13 +1028,16 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
       "action_value": {
         "title": "动作值",
         "dns": "DNS: {{value}}",
+        "proxy": "转发 ({{value}})",
         "block": "阻止访问",
-        "direct": "直接连接"
+        "direct": "直连"
       }
     },
     "actions": {
       "dns": "指定DNS服务器进行解析",
-      "block": "禁止访问"
+      "block": "禁止访问",
+      "direct": "直连",
+      "proxy": "转发"
     },
     "form": {
       "add": "添加路由",
@@ -1048,6 +1051,8 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
       "actionPlaceholder": "请选择动作",
       "dns": "DNS服务器",
       "dnsPlaceholder": "请输入DNS服务器",
+      "proxy": "转发标签 (Outbound Tag)",
+      "proxyPlaceholder": "请输入转发标签",
       "cancel": "取消",
       "submit": "提交",
       "validation": {
@@ -1346,7 +1351,11 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
           "label": "插件",
           "placeholder": "选择插件",
           "obfs_hint": "提示：配置格式如 obfs=http;obfs-host=www.bing.com;path=/",
-          "v2ray_hint": "提示：WebSocket模式格式为 mode=websocket;host=mydomain.me;path=/;tls=true，QUIC模式格式为 mode=quic;host=mydomain.me"
+          "v2ray_hint": "提示：WebSocket模式格式为 mode=websocket;host=mydomain.me;path=/;tls=true，QUIC模式格式为 mode=quic;host=mydomain.me",
+          "gost_hint": "提示：配置格式如 mode=websocket;host=mydomain.me;path=/;tls=true",
+          "shadow_tls_hint": "提示：配置格式如 host=cloud.tencent.com;password=auth_password;version=3",
+          "restls_hint": "提示：配置格式如 host=www.microsoft.com;password=auth_password;version-hint=tls13;restls-script=300?100<1,400~100",
+          "kcptun_hint": "提示：配置格式如 key=psk;crypt=aes-128-gcm;mode=fast;mtu=1350"
         },
         "plugin_opts": {
           "label": "插件选项",
@@ -1365,6 +1374,44 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
         "obfs_settings": {
           "path": "路径",
           "host": "Host"
+        },
+        "cert_config": {
+          "tab": "TLS 证书",
+          "cert_mode": {
+            "label": "证书模式",
+            "description": "选择证书申请方式，仅部分后端节点支持",
+            "self_description": "自签名模式：仅需填写域名，证书由节点后端自动生成（10年有效期）",
+            "http_description": "HTTP-01 模式：需要 80 端口可正常访问以完成认证",
+            "dns_description": "DNS-01 模式：通过 DNS 解析记录认证，支持申请泛域名证书",
+            "content_description": "内容推送模式：直接将证书内容下发至节点"
+          },
+          "domain": {
+            "label": "证书域名",
+            "placeholder": "example.com"
+          },
+          "email": {
+            "label": "通知邮箱",
+            "placeholder": "admin@example.com"
+          },
+          "http_port": {
+            "label": "认证端口",
+            "description": "ACME 认证端口 (默认 80)"
+          },
+          "dns_provider": {
+            "label": "DNS 提供商",
+            "doc_link": "查看 DNS 提供商配置指南"
+          },
+          "dns_env": {
+            "label": "环境变量 (API 密钥)",
+            "description_short": "每行一个 KEY=VALUE 配置"
+          },
+          "cert_content": {
+            "label": "证书内容 (Public Key)"
+          },
+          "key_content": {
+            "label": "密钥内容 (Private Key)"
+          },
+          "none_desc": "未启用 TLS 证书配置"
         }
       },
       "vmess": {
@@ -1603,46 +1650,50 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
         }
       },
       "cert_config": {
-        "title": "证书配置 (高级)",
+        "tab": "TLS 证书",
         "cert_mode": {
           "label": "证书模式",
-          "placeholder": "选择证书申请方式",
           "description": "选择证书申请方式，仅部分后端节点支持",
-          "http": "HTTP",
-          "self": "Self",
-          "dns": "DNS"
+          "none_desc": "未启用 TLS 证书配置"
         },
-        "cert_files": {
-          "label": "证书文件",
-          "description": "配置证书和私钥文件路径，留空将自动生成"
+        "domain": {
+          "label": "证书域名"
         },
-        "cert_file": {
-          "label": "证书文件路径",
-          "placeholder": "留空将自动生成，或输入: /path/to/cert.pem",
-          "description": "证书公钥文件路径，留空时系统将根据证书模式自动生成",
-          "auto_generate_hint": "留空自动生成"
+        "email": {
+          "label": "通知邮箱"
         },
-        "key_file": {
-          "label": "私钥文件路径",
-          "placeholder": "留空将自动生成，或输入: /path/to/key.pem",
-          "description": "证书私钥文件路径，留空时系统将根据证书模式自动生成",
-          "auto_generate_hint": "留空自动生成"
-        },
-        "dns_config": {
-          "label": "DNS 配置",
-          "description": "配置 DNS 验证所需的提供商和环境变量"
+        "http_port": {
+          "label": "挑战端口",
+          "description": "ACME 挑战端口 (默认 80)"
         },
         "dns_provider": {
           "label": "DNS 提供商",
-          "placeholder": "例如: cloudflare, alidns, route53",
-          "description": "输入 DNS 提供商名称，参考",
-          "doc_link": "DNS 提供商文档"
+          "doc_link": "查看 DNS 提供商配置指南"
         },
         "dns_env": {
-          "label": "DNS 环境变量",
-          "placeholder": "例如:\nCLOUDFLARE_EMAIL=you@example.com\nCLOUDFLARE_API_KEY=your_api_key",
-          "description": "每行一个环境变量，格式: KEY=value。请根据所选 DNS 提供商的要求设置相应的环境变量"
+          "label": "环境变量 (API 密钥)",
+          "description_short": "每行一个 KEY=VALUE 配置"
+        },
+        "cert_content": {
+          "label": "证书内容 (Public Key)"
+        },
+        "key_content": {
+          "label": "密钥内容 (Private Key)"
         }
+      },
+      "routing": {
+        "outbounds_tab": "自定义 Outbounds",
+        "routes_tab": "自定义 Routes",
+        "outbounds": "自定义 Outbounds (JSON)",
+        "routes": "自定义 Routes (JSON)",
+        "error": {
+          "must_be_array": "必须是一个 JSON 数组 []",
+          "invalid_json": "无效的 JSON 格式"
+        }
+      },
+      "advanced": {
+        "trigger_label": "高级设置 (TLS / 路由)",
+        "dialog_title": "高级设置"
       }
     },
     "network_settings": {
@@ -1916,6 +1967,14 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
     "export": "导出",
     "currency": {
       "yuan": "元"
+    },
+    "http": {
+      "notLoggedIn": "未登录",
+      "unknownError": "未知错误",
+      "loginExpired": "登录已过期",
+      "noPermission": "没有权限",
+      "notFound": "资源或接口不存在",
+      "unknownException": "未知异常"
     }
   },
   "group": {
@@ -2791,12 +2850,12 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
         "relaxed": "宽松模式",
         "placeholder": "请选择设备限制模式"
       },
-      "server_websocket_enable": {
+      "server_ws_enable": {
         "title": "启用 WebSocket 通信",
         "description": "开启后节点将通过 WebSocket 与面板进行实时通信，延迟更低、推送更及时。",
         "supported_clients": "目前支持 WebSocket 通信的节点端：Xboard Node"
       },
-      "server_websocket_url": {
+      "server_ws_url": {
         "title": "WebSocket 地址",
         "description": "节点连接面板的 WebSocket 地址，留空则自动使用站点网址。",
         "placeholder": "留空则使用站点网址"
